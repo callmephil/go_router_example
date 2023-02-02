@@ -1,0 +1,48 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "chrome (debug)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "chrome"
+    },
+    {
+      "name": "chrome (profile mode)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "chrome",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "chrome (release mode)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "chrome",
+      "flutterMode": "release"
+    },
+    {
+      "name": "android (debug)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "android"
+    },
+    {
+      "name": "android (profile mode)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "android",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "android (release mode)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "android",
+      "flutterMode": "release"
+    }
+  ]
+}
