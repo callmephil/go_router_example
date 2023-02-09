@@ -3,6 +3,39 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_router_example/router/router.dart';
 
+class NavigationItem {
+  const NavigationItem({
+    required this.name,
+    required this.path,
+    required this.iconData,
+  });
+
+  final String name;
+  final String path;
+  final IconData iconData;
+}
+
+enum DashboardItems {
+  home(
+    NavigationItem(
+      name: 'home',
+      path: '/d/home',
+      iconData: Icons.home,
+    ),
+  ),
+  users(
+    NavigationItem(
+      name: 'users',
+      path: '/d/users',
+      iconData: Icons.people,
+    ),
+  ),
+  ;
+
+  const DashboardItems(this.item);
+  final NavigationItem item;
+}
+
 class AppScaffold extends StatefulWidget {
   const AppScaffold({super.key, required this.child});
 
@@ -12,8 +45,20 @@ class AppScaffold extends StatefulWidget {
   State<AppScaffold> createState() => _AppScaffoldState();
 }
 
-class _AppScaffoldState extends State<AppScaffold> {
+class _AppScaffoldState extends State<AppScaffold>
+    with SingleTickerProviderStateMixin {
   final ValueNotifier<int> _selectedIndex = ValueNotifier(0);
+
+  @override
+  void didUpdateWidget(AppScaffold oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    final element = DashboardItems.values.firstWhere(
+      (e) => e.item.path == GoRouter.of(context).location,
+    );
+
+    _selectedIndex.value = element.index;
+  }
 
   @override
   Widget build(BuildContext _) {
@@ -25,18 +70,18 @@ class _AppScaffoldState extends State<AppScaffold> {
             selectedIndex: value,
             body: widget.child,
             onDestinationSelected: (int idx) {
-              final element = NavigationItems.values.firstWhere(
+              final element = DashboardItems.values.firstWhere(
                 (e) => e.index == idx,
               );
 
-              _selectedIndex.value = idx;
-              context.go(element.path);
+              // _selectedIndex.value = idx;
+              context.go(element.item.path);
               // print(element.path);
             },
-            destinations: NavigationItems.values.map((e) {
+            destinations: DashboardItems.values.map((e) {
               return AdaptiveScaffoldDestination(
-                title: e.name,
-                icon: e.iconData,
+                title: e.item.name,
+                icon: e.item.iconData,
               );
             }).toList(),
           );

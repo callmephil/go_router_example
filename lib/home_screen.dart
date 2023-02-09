@@ -2,18 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_router_example/router/router.dart';
 
-// enum Routes {
-//   someroute,
-// }
-
-// class MyObject {}
-
-// Map<Routes, MyObject> listroutes = {
-//   Routes.someroute: MyObject(),
-// };
-
-// listroutes[Routes.name];
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -22,20 +10,36 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int counter = 0;
+
+  void increment() {
+    if (!mounted) return;
+
+    setState(() {
+      counter++;
+    });
+  }
+
+  void decrement() {
+    if (!mounted) return;
+
+    setState(() {
+      counter--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home Page'),
       ),
-      body: Container(
-        color: Colors.red,
-        child: ElevatedButton(
-          onPressed: () {
-            context.go(NavigationItems.direct.path);
-          },
-          child: const Text("Don't press Me"),
-        ),
+      body: Column(
+        children: [
+          Text(counter.toString()),
+          TextButton(onPressed: increment, child: const Text('Increment')),
+          TextButton(onPressed: decrement, child: const Text('Decrement')),
+        ],
       ),
     );
   }
